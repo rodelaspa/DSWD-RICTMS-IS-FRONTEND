@@ -20,6 +20,7 @@ import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { LoadingInterceptor } from './loading.interceptor';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
+import { environment } from './../environments/environment';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
   providers: [httpInterceptorProviders, 
     {
       provide: RECAPTCHA_V3_SITE_KEY,
-      useValue: '6Lf4H4YnAAAAABKpJ9f8K2iwtzdDn98QbKRYAiOJ',
+      useValue: environment.recaptcha.siteKey,
     },
     {
       provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
