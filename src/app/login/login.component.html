@@ -1,0 +1,95 @@
+<div class="hold-transition login-page">
+    <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="logo-row">
+            <img src = "./../../assets/dist/img/ictms logo.png" class="ictms_logo">
+        </div>
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="#" class="h1"><b>RICTMS</b>FO5</a>
+            </div>
+            <div class="card-body">
+                <p class="login-box-msg">Welcome to RICTMS Information System</p>
+
+                <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" 
+                            name="username"
+                            placeholder="Username"
+                            [(ngModel)]="loginForm.value.username"
+                            required
+                            #username="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && username.errors }
+                        ">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                        <div *ngIf="username.errors && f.submitted" class="invalid-feedback">
+                            Username is required!
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" 
+                            placeholder="Password"
+                            name="password"
+                            [(ngModel)]="loginForm.value.password"
+                            required
+                            minlength="5"
+                            #password="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && password.errors }
+                        ">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
+                            <div *ngIf="password.errors['required']">Password is required</div>
+                            <div *ngIf="password.errors['minlength']">
+                              Password must be at least 6 characters
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            Login failed: {{ errorMessage }}
+                          </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <p class="mt-1">
+                                <a href="forgot-password.html">I forgot my password</a>
+                            </p>
+                        </div>
+         
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!--p class="mb-0">
+                    Not a <a href="register.html" class="text-center">Register a new membership</a>
+                </p-->
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.login-box -->
+</div>
+
