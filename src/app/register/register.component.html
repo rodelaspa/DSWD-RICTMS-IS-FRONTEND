@@ -6,10 +6,10 @@
       </div>
       <div class="card card-outline card-primary">
         <div class="card-header text-center">
-          <a href="#" class="h1"><b>RICTMS</b>FO5</a>
+          <h1><b>RICTMS</b>FO5</h1>
         </div>
         <div class="card-body">
-          <p class="login-box-msg">Register a new membership</p>
+          <h5 class="login-box-msg"><b>REGISTRATION FORM</b></h5>
     
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" >
             <div class="input-group mb-3">
@@ -50,6 +50,43 @@
             </div>
 
             <div class="input-group mb-3">
+              <input type="text" formControlName="position" class="form-control" [ngClass]="{ 'is-invalid': f['position'].touched && f['position'].errors }" placeholder="Position"/>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-suitcase"></span>
+                </div>
+              </div>
+              <div class="input-group" *ngIf="f['position'].touched && f['position'].errors" >
+                <div class="text text-danger" *ngIf="f['position'].errors['required']">
+                  Position is required
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group mb-3">
+              <input type="text" formControlName="obsu" class="form-control" [ngClass]="{ 'is-invalid': f['obsu'].touched && f['obsu'].errors }" placeholder="OBSU (Office - Service - Division/Unit)"/>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-building"></span>
+                </div>
+              </div>
+              <div class="input-group" *ngIf="f['obsu'].touched && f['obsu'].errors" >
+                <div class="text text-danger" *ngIf="f['obsu'].errors['required']">
+                  OBSU is required
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group mb-3">
+              <input type="text" formControlName="designation" class="form-control" [ngClass]="{ 'is-invalid': f['designation'].touched && f['designation'].errors }" placeholder="Designation, if there's any."/>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-user-tie"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group mb-3">
               <input type="text" formControlName="email_address" class="form-control" [ngClass]="{ 'is-invalid': f['email_address'].touched && f['email_address'].errors }" placeholder="Email Address"/>
               <div class="input-group-append">
                 <div class="input-group-text">
@@ -84,31 +121,65 @@
             </div>
 
             <div class="input-group mb-3">
-              <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password">
+              <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': f['username'].touched && f['username'].errors }" placeholder="Username"/>
               <div class="input-group-append">
                 <div class="input-group-text">
-                  <span class="fas fa-lock"></span>
+                  <span class="fas fa-user"></span>
+                </div>
+              </div>
+              <div class="input-group" *ngIf="f['username'].touched && f['username'].errors" >
+                <div class="text text-danger" *ngIf="f['username'].errors['required']">
+                  Username is required
                 </div>
               </div>
             </div>
+
             <div class="input-group mb-3">
-              <input type="password" class="form-control" id="confirm_password" formControlName="confirm_password" placeholder="Confirm Password">
+              <input [type]="password" class="form-control" id="password" formControlName="password" placeholder="Password">
               <div class="input-group-append">
                 <div class="input-group-text">
-                  <span class="fas fa-lock"></span>
+                  <i (click)="onClick()" class="fa fa-eye"  *ngIf="!show"></i>
+                  <i (click)="onClick()" class="fa fa-eye-slash"  *ngIf="show"></i>
                 </div>
               </div>
               
+              <div class="input-group" *ngIf="f['password'].touched && f['password'].errors" >
+                <div class="text text-danger" *ngIf="f['password'].errors['required']">
+                  Password is required
+                </div>
+                <div class="text text-danger" *ngIf="f['password'].errors['minlength']">
+                  Password must be at least 8 characters
+                </div>
+                <div class="text text-danger" *ngIf="f['password'].hasError('passwordStrength')">
+                  {{f['password'].errors['passwordStrength']}}
+                 </div>
+              </div>
             </div>
-            <div class="text text-danger" *ngIf="registerForm.errors?.['PasswordNoMatch']">
-              Password does'nt match.
+
+            <div class="input-group mb-3">
+              <input [type]="password" class="form-control" id="confirm_password" formControlName="confirm_password" placeholder="Confirm Password">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+              <div class="input-group" *ngIf="f['confirm_password'].touched && f['confirm_password'].errors" >
+                <div class="text text-danger" *ngIf="f['confirm_password'].errors['required']">
+                  Confirm Password is required
+                </div>
+                <div class="text text-danger" *ngIf="f['confirm_password'].errors['matching']">
+                  Confirm Password does not match
+                </div>
+              </div>
             </div>
+            
+
             <div class="row">
               <div class="col-8">
                 <div class="icheck-primary">
-                  <input type="checkbox" required="required" id="agreeTerms" name="terms" value="agree">
+                  <input type="checkbox" [ngClass]="{ 'is-invalid': submitted && f['acceptTerms'].errors }" formControlName="acceptTerms" required="required" id="agreeTerms" name="terms" value="true">
                   <label for="agreeTerms">
-                   I agree to the <a href="#">terms</a>
+                   I accept <a href="#">Terms of Use</a>
                   </label>
                 </div>
               </div>
@@ -120,28 +191,11 @@
             </div>
           </form>
     
-          <!--div class="social-auth-links text-center">
-            <a href="#" class="btn btn-block btn-primary">
-              <i class="fab fa-facebook mr-2"></i>
-              Sign up using Facebook
-            </a>
-            <a href="#" class="btn btn-block btn-danger">
-              <i class="fab fa-google-plus mr-2"></i>
-              Sign up using Google+
-            </a>
-          </div-->
-    
-          <a href="/login" class="text-center">I already have a account</a>
+          <a routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page" class="text-center">I already have a account</a>
         </div>
         <!-- /.form-box -->
       </div><!-- /.card -->
     </div>
     <!-- /.register-box -->
     
-    <!-- jQuery -->
-    <script src="../../plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../../dist/js/adminlte.min.js"></script>
 </body>

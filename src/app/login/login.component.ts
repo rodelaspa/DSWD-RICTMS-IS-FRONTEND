@@ -28,7 +28,11 @@ export class LoginComponent implements OnInit {
       recaptcha: ['', Validators.required]
     });
 
-    
+    this.recaptchaV3Service.execute('importantAction')
+    .subscribe((token: string) => {
+      console.debug(`Token [${token}] generated`);
+      console.log(`Token [${token}] generated`);
+    });
   }
 
 

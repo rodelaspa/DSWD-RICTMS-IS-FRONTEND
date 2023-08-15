@@ -48,7 +48,7 @@ import { environment } from './../environments/environment';
   providers: [httpInterceptorProviders, 
     {
       provide: RECAPTCHA_V3_SITE_KEY,
-      useValue: environment.recaptcha.siteKey,
+      useValue: environment.recaptcha.siteKey
     },
     {
       provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
